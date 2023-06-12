@@ -1,0 +1,89 @@
+name: Custom_Diffusion_catA_Cmix_B4_Iter250
+model_type: CustomDiffusionModel
+num_gpu: 2
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: CustomDiffusionDataset
+    type: CustomDiffusionDataset
+    concept_list: datasets/data_cfgs/custom_diffusion/single-concept/objects/real/catA.json
+    size: 512
+    center_crop: false
+    with_prior_preservation: true
+    num_class_images: 200
+    hflip: true
+
+    use_shuffle: true
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 2
+    pin_memory: true
+    prefetch_mode: cuda
+
+  val_vis:
+    name: PromptDataset
+    type: PromptDataset
+    prompts: datasets/validation_prompts/single-concept/objects/test_cat.txt
+    num_samples_per_prompt: 8
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: <catA> cat
+    use_shuffle: false
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 4
+
+network_g:
+  type: Custom_Diffusion
+  pretrained_path: experiments/pretrained_models/chilloutmix
+  modifier_token: <catA>
+  initializer_token: ktn+pll+ucd
+  finetune_params: crossattn_kv
+  test_sampler_type: ddim
+  prior_loss_weight: 1.0
+
+# path
+path:
+  pretrain_network_g: ~
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 2e-5
+    scale_lr: true
+    weight_decay: 0.01
+    betas: [ 0.9, 0.999 ]
+  max_grad_norm: ~
+  scheduler:
+    type: ConstantLR
+  total_iter: 250 # 5 epoch
+  warmup_iter: -1  # no warm up
+
+# validation settings
+val:
+  val_freq: !!float 250
+  save_img: true
+  compose_visualize: true
+  pbar: true
+
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5
+    eta: 0.0
+
+  metrics: ~
+
+# logging settings
+logger:
+  print_freq: 10
+  save_checkpoint_freq: !!float 100
+  use_tb_logger: false
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

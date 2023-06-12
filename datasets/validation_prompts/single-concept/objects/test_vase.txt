@@ -1,0 +1,5 @@
+photo of a <TOK>
+<TOK>
+photo of a vase
+a rose in a <TOK>
+a <TOK> on a table

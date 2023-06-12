@@ -1,0 +1,32 @@
+[
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_hina.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<hina1> <hina2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_kaori.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<kaori1> <kaori2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_tezuka.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<tezuka1> <tezuka2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_mitsuha.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<mitsuha1> <mitsuha2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_son.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<son1> <son2>"
+    }
+]

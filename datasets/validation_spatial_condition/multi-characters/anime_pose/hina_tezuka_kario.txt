@@ -1,0 +1,8 @@
+char1='<hina1> <hina2>'
+box1='[61, 115, 512, 273]'
+
+char2='<tezuka1> <tezuka2>'
+box2='[19, 292, 512, 512]'
+
+char3='<kaori1> <kaori2>'
+box3='[48, 519, 512, 706]'

@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "photo of a sks cat",
+        "instance_data_dir": "datasets/data/objects/real/cat/catA/image",
+        "class_data_dir": "datasets/Dreambooth_Regularization/chilloutmix/real/object/cat",
+        "class_prompt": "photo of a cat"
+    }
+]

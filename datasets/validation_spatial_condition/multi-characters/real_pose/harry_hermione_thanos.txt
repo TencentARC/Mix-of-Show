@@ -1,0 +1,8 @@
+char1='<potter1> <potter2>'
+box1='[4, 28, 512, 251]'
+
+char2='<hermione1> <hermione2>'
+box2='[7, 215, 512, 453]'
+
+char3='<thanos1> <thanos2>'
+box3='[1, 651, 512, 996]'

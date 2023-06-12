@@ -1,0 +1,34 @@
+char1='<hina1> <hina2>'
+box1='[61, 18, 512, 192]'
+
+char2='<tezuka1> <tezuka2>'
+box2='[20, 194, 512, 407]'
+
+char3='<mitsuha1> <mitsuha2>'
+box3='[82, 433, 512, 614]'
+
+char4='goku'
+box4='[9, 627, 512, 803]'
+
+char5='<kaori1> <kaori2>'
+box5='[71, 803, 512, 978]'
+
+
+
+char1_prompt='[a <hina1> <hina2>, near a lake]'char1_neg_prompt="[${context_neg_prompt}]"box1='[61, 18, 512, 166]'adptor_weight1="[1.0,1.0,1.0,1.0]" # fine to coarse
+char2_prompt='[a <tezuka1> <tezuka2>, near a lake]'
+char2_neg_prompt="[${context_neg_prompt}]"
+box2='[20, 167, 512, 387]'adptor_weight2="[1.0,1.0,1.0,1.0]"
+
+char3_prompt='[a <mitsuha1> <mitsuha2>, near a lake]'
+char3_neg_prompt="[${context_neg_prompt}]"
+box3='[82, 413, 512, 584]'adptor_weight3="[1.0,1.0,1.0,1.0]"
+char4_prompt='[a <son1> <son2>, near a lake]'
+char4_neg_prompt="[${context_neg_prompt}]"
+box4='[22, 615, 512, 793]'
+adptor_weight4="[1.0,1.0,1.0,1.0]"
+
+char5_prompt='[a <kaori1> <kaori2>, near a lake]'
+char5_neg_prompt="[${context_neg_prompt}]"
+box5='[71, 818, 512, 983]'
+adptor_weight5="[1.0,1.0,1.0,1.0]"

@@ -1,0 +1,121 @@
+name: EDLoRA_dogA_Cmix_dropkv02_B2_Iter500
+model_type: EDLoraModel
+num_gpu: 2
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: LoraDataset
+    type: LoraDataset
+    concept_list: datasets/data_cfgs/edlora/single-concept/objects/real/dogA.json
+    use_caption: true
+    instance_transform:
+      - { type: Resize, size: 512}
+      - { type: RandomCrop, size: 512 }
+      - { type: ToTensor }
+      - { type: Normalize, mean: [ 0.5 ], std: [ 0.5 ] }
+      - { type: ShuffleCaption, keep_token_num: 1 }
+      - { type: EnhanceText, enhance_type: objects }
+    replace_mapping:
+      <TOK>: <dogA1> <dogA2>
+    dataset_enlarge_ratio: 100
+    use_shuffle: true
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 1
+    pin_memory: true
+    prefetch_mode: cuda
+
+  val_vis:
+    name: PromptDataset
+    type: PromptDataset
+    prompts: ddatasets/validation_prompts/single-concept/objects/test_dog.txt
+    num_samples_per_prompt: 8
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: <dogA1> <dogA2>
+    use_shuffle: false
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 4
+
+network_g:
+  type: EDLoRA
+  pretrained_path: experiments/pretrained_models/chilloutmix
+  finetune_cfg:
+    text_embedding:
+      enable_tuning: true
+      lr: !!float 1e-3
+    text_encoder:
+      enable_tuning: true
+      lora_cfg:
+        rank: 4
+        alpha: 1.0
+        where: CLIPAttention
+      lr: !!float 1e-5
+    unet:
+      enable_tuning: true
+      lora_cfg:
+        rank: 4
+        alpha: 1.0
+        where: CrossAttention
+      lr: !!float 1e-4
+  new_concept_token: <dogA1>+<dogA2>
+  noise_offset: 0.01
+  initializer_token: <rand-0.013>+dog
+  sd_version: v1
+  test_sampler_type: ddim
+
+# path
+path:
+  pretrain_network_g: ~
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 0.0 # no use since we define different component lr in model
+    scale_lr: false
+    weight_decay: 0.01
+    betas: [ 0.9, 0.999 ] # align with taming
+
+  kde_opt:
+    type: KDELoss
+    loss_weight: 0.002
+    bandwidth: 0.5
+
+  drop_start_iter: -1
+  unet_kv_drop_rate: 0.2
+
+  scheduler:
+    type: LinearLR
+    num_epochs: 500
+
+  total_iter: 500 # 5 epoch
+  warmup_iter: -1  # no warm up
+
+# validation settings
+val:
+  val_freq: !!float 500
+  save_img: true
+  compose_visualize: true
+  pbar: true
+
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5
+
+  metrics: ~
+
+# logging settings
+logger:
+  print_freq: 10
+  save_checkpoint_freq: !!float 100
+  use_tb_logger: false
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

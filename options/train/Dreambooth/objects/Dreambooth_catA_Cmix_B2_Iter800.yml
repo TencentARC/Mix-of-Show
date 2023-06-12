@@ -1,0 +1,87 @@
+name: Dreambooth_catA_Cmix_B2_Iter800
+model_type: DreamBoothModel
+num_gpu: 2
+manual_seed: 0
+
+# dataset and data loader settings
+datasets:
+  train:
+    name: DreamBoothDataset
+    type: DreamBoothDataset
+    concept_list: datasets/data_cfgs/dreambooth/single-concept/objects/real/catA.json
+    size: 512
+    center_crop: false
+    num_class_images: 200
+    with_prior_preservation: true
+
+    dataset_enlarge_ratio: 1
+    use_shuffle: true
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 1
+    pin_memory: true
+    prefetch_mode: cuda
+
+  val_vis:
+    name: PromptDataset
+    type: PromptDataset
+    prompts: datasets/validation_prompts/single-concept/objects/test_cat.txt
+    num_samples_per_prompt: 8
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: sks cat
+    use_shuffle: false
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 4
+
+network_g:
+  type: Dreambooth
+  pretrained_path: experiments/pretrained_models/chilloutmix
+  train_text_encoder: false
+  test_sampler_type: ddim
+  prior_loss_weight: 1.0
+
+# path
+path:
+  pretrain_network_g: ~
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 5e-6
+    scale_lr: false
+    weight_decay: 0.01
+    betas: [ 0.9, 0.999 ] # align with taming
+  max_grad_norm: ~
+  scheduler:
+    type: ConstantLR
+  total_iter: 800
+  warmup_iter: -1  # no warm up
+
+# validation settings
+val:
+  val_freq: !!float 800
+  save_img: true
+  compose_visualize: true
+  pbar: true
+
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5
+    eta: 0.0
+
+  metrics: ~
+
+# logging settings
+logger:
+  print_freq: 10
+  save_checkpoint_freq: !!float 100
+  use_tb_logger: false
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

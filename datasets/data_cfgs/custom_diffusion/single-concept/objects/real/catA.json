@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "photo of a <catA> cat",
+        "instance_data_dir": "datasets/data/objects/real/cat/catA/image",
+        "class_data_dir": "datasets/Custom_Diffusion_Regularization/real_reg/object/samples_cat/cat",
+        "class_prompt": "datasets/Custom_Diffusion_Regularization/real_reg/object/samples_cat/caption.txt"
+    }
+]

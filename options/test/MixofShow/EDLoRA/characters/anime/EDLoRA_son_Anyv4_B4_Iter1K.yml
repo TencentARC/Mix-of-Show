@@ -1,0 +1,61 @@
+name: EDLoRA_son_Anyv4_B4_Iter1K
+model_type: EDLoraModel
+num_gpu: 2
+manual_seed: 0
+
+datasets:
+  val_vis:
+    name: PromptDataset
+    type: PromptDataset
+    prompts: datasets/benchmark_prompts/single-concept/characters/test_character.txt
+    num_samples_per_prompt: 50
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: <son1> <son2>
+    use_shuffle: false
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 4
+
+
+network_g:
+  type: EDLoRA
+  pretrained_path: experiments/pretrained_models/anything-v4.0
+  finetune_cfg:
+    text_embedding:
+      enable_tuning: true
+      lr: !!float 1e-3
+    text_encoder:
+      enable_tuning: true
+      lora_cfg:
+        rank: 4
+        alpha: 1.0
+        where: CLIPAttention
+      lr: !!float 1e-5
+    unet:
+      enable_tuning: true
+      lora_cfg:
+        rank: 4
+        alpha: 1.0
+        where: CrossAttention
+      lr: !!float 1e-4
+  new_concept_token: <son1>+<son2>
+  initializer_token: <rand-0.013>+goku
+  sd_version: v1
+  test_sampler_type: ddim
+
+# path
+path:
+  pretrain_network_g: experiments/MixofShow_Results/EDLoRA_Models/Base_Anythingv4/characters/edlora_son.pth
+
+# validation settings
+val:
+  save_img: true
+  suffix: ~  # add suffix to saved images, if None, use exp name
+  pbar: true
+  compose_visualize: false
+  vis_embedding: false
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5
+    use_negative_prompt: true
+  metrics: ~

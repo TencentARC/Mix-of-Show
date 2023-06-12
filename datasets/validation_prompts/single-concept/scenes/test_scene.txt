@@ -1,0 +1,6 @@
+photo of a <TOK>
+<TOK>
+photo of a pyramid
+photo of a rock
+photo of a <TOK>, at night
+two people stand in front of <TOK>

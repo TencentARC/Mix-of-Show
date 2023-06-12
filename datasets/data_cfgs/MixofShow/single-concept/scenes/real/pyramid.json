@@ -1,0 +1,7 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/scenes/real/Pyramid/image",
+        "caption_dir": "datasets/data/scenes/real/Pyramid/caption"
+    }
+]

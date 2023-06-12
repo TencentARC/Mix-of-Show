@@ -1,0 +1,86 @@
+[
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_potter.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<potter1> <potter2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_hermione.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<hermione1> <hermione2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_thanos.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<thanos1> <thanos2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_hinton.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<hinton1> <hinton2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_lecun.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<lecun1> <lecun2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/characters/edlora_bengio.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<bengio1> <bengio2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_catA.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<catA1> <catA2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_dogA.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<dogA1> <dogA2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_chair.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<chair1> <chair2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_table.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<table1> <table2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_dogB.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<dogB1> <dogB2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/objects/edlora_vase.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<vase1> <vase2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/scenes/edlora_pyramid.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<pyramid1> <pyramid2>"
+    },
+    {
+        "lora_path": "experiments/MixofShow_Results/EDLoRA_Models/Base_Chilloutmix/scenes/edlora_rock.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<rock1> <rock2>"
+    }
+]

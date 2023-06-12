@@ -1,0 +1,11 @@
+char1='<potter1> <potter2>'
+box1='[0, 315, 512, 530]'
+
+region3='<hermione1> <hermione2>'
+region3='[0, 502, 512, 747]'
+
+char1='<dogA1> <dogA2>'
+box1='[221, 43, 512, 258]'
+
+region3='<catA1> <catA2>'
+region3='[228, 752, 512, 1016]'
