@@ -11,13 +11,13 @@ Official codes for Mix-of-Show. This branch is for application, including simpli
 
 
 
-![overview](./README.assets/overview-6575579.gif)
+![overview](./README.assets/overview.gif)
 
 ## 📋 Results
 
 ### Single-Concept Sample Results
 
-![single_concept](./README.assets/single_concept-6575579.jpg)
+![single_concept](./README.assets/single_concept.jpg)
 
 ### Multi-Concept Sample Results
 
@@ -25,13 +25,13 @@ Official codes for Mix-of-Show. This branch is for application, including simpli
 
 #### **Real-World Concept Results**
 
-![real_multi_result](./README.assets/real_multi_result-6575579.jpg)
+![real_multi_result](./README.assets/real_multi_result.jpg)
 
 ------
 
 #### **Anime Concept Results**
 
-![anime_multi_result](./README.assets/anime_multi_result-6575579.jpg)
+![anime_multi_result](./README.assets/anime_multi_result.jpg)
 
 ## 🚩 Updates/Todo List
 
