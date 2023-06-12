@@ -1,10 +1,11 @@
-datasets/*
+datasets/old/*
+datasets/data/*
 visualization/*
-experiments/*
+experiments/old/*
 results/*
 tb_logger/*
 wandb/*
-
+*idea/*
 *.DS_Store
 
 # Byte-compiled / optimized / DLL files
@@ -136,4 +137,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.idea/
