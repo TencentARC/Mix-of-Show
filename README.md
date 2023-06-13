@@ -1,5 +1,9 @@
 # Mix-of-Show
 
+🚩🚩🚩: Research Code has been released at https://github.com/TencentARC/Mix-of-Show/tree/research_branch.
+
+------
+
 Official codes for Mix-of-Show. This branch is for application, including simplified codes, memory optimization and any improvements verified in research branch. For research purpose, please refer to [research branch](https://github.com/TencentARC/Mix-of-Show/tree/research_branch) (paper results, evaluation, and comparison methods).
 
 **[Mix-of-Show: Decentralized Low-Rank Adaptation for Multi-Concept Customization of Diffusion Models](https://arxiv.org/abs/2305.18292)**
