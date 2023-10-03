@@ -1,0 +1,6 @@
+photo of a <TOK>
+<TOK>
+photo of a chair
+a girl sit on a <TOK>
+a cat sit on a <TOK>
+a <TOK>, indoor

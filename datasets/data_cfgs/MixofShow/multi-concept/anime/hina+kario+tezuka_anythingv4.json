@@ -1,0 +1,20 @@
+[
+    {
+        "lora_path": "experiments/1001_EDLoRA_hina_Anyv4_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<hina1> <hina2>"
+    },
+    {
+        "lora_path": "experiments/1002_EDLoRA_kaori_Anyv4_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<kaori1> <kaori2>"
+    },
+    {
+        "lora_path": "experiments/1003_EDLoRA_tezuka_Anyv4_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<tezuka1> <tezuka2>"
+    }
+]

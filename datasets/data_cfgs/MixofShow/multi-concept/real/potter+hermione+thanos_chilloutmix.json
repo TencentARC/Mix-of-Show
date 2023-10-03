@@ -1,0 +1,20 @@
+[
+    {
+        "lora_path": "experiments/2101_EDLoRA_potter_Cmix_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<potter1> <potter2>"
+    },
+    {
+        "lora_path": "experiments/2102_EDLoRA_hermione_Cmix_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<hermione1> <hermione2>"
+    },
+    {
+        "lora_path": "experiments/2103_EDLoRA_thanos_Cmix_B4_Repeat250/models/edlora_model-latest.pth",
+        "unet_alpha": 1.0,
+        "text_encoder_alpha": 1.0,
+        "concept_name": "<thanos1> <thanos2>"
+    }
+]

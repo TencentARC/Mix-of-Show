@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/objects/real/car/porsche_356a/image",
+        "mask_dir": "datasets/data/objects/real/car/porsche_356a/mask",
+        "caption_dir": "datasets/data/objects/real/car/porsche_356a/caption"
+    }
+]

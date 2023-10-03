@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/objects/real/boat/sailboat/image",
+        "mask_dir": "datasets/data/objects/real/boat/sailboat/mask",
+        "caption_dir": "datasets/data/objects/real/boat/sailboat/caption"
+    }
+]

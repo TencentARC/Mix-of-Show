@@ -1,0 +1,7 @@
+photo of a <TOK>
+<TOK>
+photo of a table
+a flowers on a <TOK>
+a book on a <TOK>
+a <TOK>, near the swimming pool
+a <TOK>, indoor

@@ -1,0 +1,11 @@
+char1='<potter1> <potter2> sit on a <chair1> <chair2>'
+box1='[0, 0, 512, 400]'
+
+region3='a <dogA1> <dogA2>'
+region3='[60, 501, 350, 706]'
+
+region4='a <catA1> <catA2>'
+region4='[57, 692, 343, 940]'
+
+region5='a <table1> <table2>'
+region5='[280, 423, 508, 983]'

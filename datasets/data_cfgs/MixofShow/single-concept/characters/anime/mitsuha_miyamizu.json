@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/characters/anime/Mitsuha_Miyamizu/image",
+        "caption_dir": "datasets/data/characters/anime/Mitsuha_Miyamizu/caption",
+        "mask_dir": "datasets/data/characters/anime/Mitsuha_Miyamizu/mask"
+    }
+]

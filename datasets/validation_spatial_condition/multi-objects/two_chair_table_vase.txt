@@ -1,0 +1,11 @@
+char1='<chair1> <chair2>'
+box1='[150, 6, 463, 293]'
+
+char2='a <vase1> <vase2>'
+box2='[53, 438, 302, 565]'
+
+char3='<chair1> <chair2>'
+box3='[160, 724, 457, 1002]'
+
+char4='a <table1> <table2>'
+box4='[248, 344, 468, 664]'

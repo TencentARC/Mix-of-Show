@@ -1,0 +1,30 @@
+name: 1001_EDLoRA_hina_Anyv4_B4_Iter1K
+manual_seed: 0
+mixed_precision: fp16
+
+# dataset and data loader settings
+datasets:
+  val_vis:
+    name: PromptDataset
+    prompts: datasets/validation_prompts/single-concept/characters/test_girl.txt
+    num_samples_per_prompt: 8
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: <hina1> <hina2>
+    batch_size_per_gpu: 4
+
+models:
+  pretrained_path: experiments/pretrained_models/anything-v4.0
+  enable_edlora: true  # true means ED-LoRA, false means vallina LoRA
+  alpha_list: [0, 0.4, 0.6, 1.0] # 0 means only visualize embedding (without lora weight)
+
+# path
+path:
+  lora_path: experiments/1001_EDLoRA_hina_Anyv4_B4_Iter1K/models/lora_model-latest.pth
+
+# validation settings
+val:
+  compose_visualize: true
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5

@@ -1,0 +1,11 @@
+char1='<lecun1> <lecun2> sit on a <chair1> <chair2>'
+box1='[31, 2, 512, 376]'
+
+char2='<bengio1> <bengio2> sit on a <chair1> <chair2>'
+box2='[30, 644, 506, 1011]'
+
+region3='a <vase1> <vase2>'
+region3='[110, 438, 342, 568]'
+
+region4='a <table1> <table2>'
+region4='[290, 344, 488, 674]'

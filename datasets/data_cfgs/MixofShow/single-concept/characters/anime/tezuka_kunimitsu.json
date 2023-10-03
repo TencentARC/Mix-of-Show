@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/characters/anime/Tezuka_Kunimitsu/image",
+        "caption_dir": "datasets/data/characters/anime/Tezuka_Kunimitsu/caption",
+        "mask_dir": "datasets/data/characters/anime/Tezuka_Kunimitsu/mask"
+    }
+]

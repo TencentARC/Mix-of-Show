@@ -1,0 +1,8 @@
+char1='<bengio1> <bengio2>'
+box1='[6, 51, 512, 293]'
+
+char2='<lecun1> <lecun2>'
+box2='[1, 350, 512, 618]'
+
+char3='<hinton1> <hinton2>'
+box3='[3, 657, 512, 923]'

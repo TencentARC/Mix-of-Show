@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/objects/real/airplane/f35/image",
+        "mask_dir": "datasets/data/objects/real/airplane/f35/mask",
+        "caption_dir": "datasets/data/objects/real/airplane/f35/caption"
+    }
+]

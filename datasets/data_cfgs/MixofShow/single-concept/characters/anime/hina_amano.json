@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/characters/anime/Hina_Amano/image",
+        "caption_dir": "datasets/data/characters/anime/Hina_Amano/caption",
+        "mask_dir": "datasets/data/characters/anime/Hina_Amano/mask"
+    }
+]

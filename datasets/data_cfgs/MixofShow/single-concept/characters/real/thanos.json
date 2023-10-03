@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/characters/real/Thanos/image",
+        "caption_dir": "datasets/data/characters/real/Thanos/caption",
+        "mask_dir": "datasets/data/characters/real/Thanos/mask"
+    }
+]

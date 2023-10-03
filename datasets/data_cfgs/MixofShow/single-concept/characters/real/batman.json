@@ -1,0 +1,8 @@
+[
+    {
+        "instance_prompt": "<TOK>",
+        "instance_data_dir": "datasets/data/characters/real/Batman/image",
+        "caption_dir": "datasets/data/characters/real/Batman/caption",
+        "mask_dir": "datasets/data/characters/real/Batman/mask"
+    }
+]
