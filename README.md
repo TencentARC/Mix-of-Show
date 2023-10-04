@@ -116,6 +116,8 @@ accelerate launch train_edlora.py -opt options/train/EDLoRA/real/2101_EDLoRA_pot
 
 ### Step 3: Sample
 
+**Download our trained model** from [Google Drive](https://drive.google.com/drive/folders/1ArvKsxj41PcWbw_UZcyc5NDcKEQjK8pl?usp=sharing).
+
 Direct sample image:
 
 ```python
@@ -178,6 +180,8 @@ bash fuse.sh
 ```
 
 ### Step 3: Sample
+
+**Download our fused model** from [Google Drive](https://drive.google.com/drive/folders/1ArvKsxj41PcWbw_UZcyc5NDcKEQjK8pl?usp=sharing).
 
 **Single-concept sampling from fused model:**
 
