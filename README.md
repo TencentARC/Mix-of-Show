@@ -1,6 +1,6 @@
 # Mix-of-Show
 
-🚩🚩🚩: Main branch for community usage has been released (keep updating the main branch).
+🚩🚩🚩: Main branch for community has been released (keep updating the main branch).
 
 ------
 
