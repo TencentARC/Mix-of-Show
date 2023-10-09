@@ -1,0 +1,30 @@
+name: 8102_EDLoRA_hermione_Cmix_B4_Repeat500_v6_final
+manual_seed: 0
+mixed_precision: fp16
+
+# dataset and data loader settings
+datasets:
+  val_vis:
+    name: PromptDataset
+    prompts: datasets/validation_prompts/single-concept/characters/test_woman.txt
+    num_samples_per_prompt: 8
+    latent_size: [ 4,64,64 ]
+    replace_mapping:
+      <TOK>: <hermione1> <hermione2>
+    batch_size_per_gpu: 4
+
+models:
+  pretrained_path: experiments/pretrained_models/chilloutmix
+  enable_edlora: true  # true means ED-LoRA, false means vallina LoRA
+
+# path
+path:
+  lora_path: experiments/8102_EDLoRA_hermione_Cmix_B4_Repeat500_v6_final/models/edlora_model-latest.pth
+
+# validation settings
+val:
+  compose_visualize: true
+  alpha_list: [0, 0.7, 1.0] # 0 means only visualize embedding (without lora weight)
+  sample:
+    num_inference_steps: 50
+    guidance_scale: 7.5

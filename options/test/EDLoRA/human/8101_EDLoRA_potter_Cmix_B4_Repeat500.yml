@@ -1,4 +1,4 @@
-name: 2002_EDLoRA_hermione_Cmix_B4_Iter1K
+name: 8101_EDLoRA_potter_Cmix_B4_Repeat500
 manual_seed: 0
 mixed_precision: fp16
 
@@ -6,11 +6,11 @@ mixed_precision: fp16
 datasets:
   val_vis:
     name: PromptDataset
-    prompts: datasets/validation_prompts/single-concept/characters/test_girl.txt
+    prompts: datasets/validation_prompts/single-concept/characters/test_man.txt
     num_samples_per_prompt: 8
     latent_size: [ 4,64,64 ]
     replace_mapping:
-      <TOK>: <hermione1> <hermione2>
+      <TOK>: <potter1> <potter2>
     batch_size_per_gpu: 4
 
 models:
@@ -19,12 +19,12 @@ models:
 
 # path
 path:
-  lora_path: experiments/save_models/2002_EDLoRA_hermione_Cmix_B4_Repeat250/models/edlora_model-latest.pth
+  lora_path: experiments/human/8101_EDLoRA_potter_Cmix_B4_Repeat500/models/edlora_model-latest.pth
 
 # validation settings
 val:
   compose_visualize: true
-  alpha_list: [0, 0.4, 0.6, 1.0] # 0 means only visualize embedding (without lora weight)
+  alpha_list: [0, 0.7, 1.0] # 0 means only visualize embedding (without lora weight)
   sample:
     num_inference_steps: 50
     guidance_scale: 7.5

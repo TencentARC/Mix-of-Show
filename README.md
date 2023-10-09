@@ -112,7 +112,7 @@ val:
 We tune each concept with 2 A100 GPU. Similar to LoRA, community user can enable gradient accumulation, xformer, gradient checkpoint for tuning on one GPU.
 
 ```bash
-accelerate launch train_edlora.py -opt options/train/EDLoRA/real/2101_EDLoRA_potter_Cmix_B4_Repeat250.yml
+accelerate launch train_edlora.py -opt options/train/EDLoRA/real/8101_EDLoRA_potter_Cmix_B4_Repeat500.yml
 ```
 
 ### Step 3: Sample
@@ -146,7 +146,7 @@ image.save('res.jpg')
 Or sampling image grids for comprehensive visualization: specify the model path in test config, and run following command. 
 
 ```bash
-python test_edlora.py -opt options/test/EDLoRA/2002_EDLoRA_hermione_Cmix_B4_Iter1K.yml
+python test_edlora.py -opt options/test/EDLoRA/human/8101_EDLoRA_potter_Cmix_B4_Repeat500.yml
 ```
 
 ## :computer: Center-Node Concept Fusion
