@@ -19,9 +19,9 @@ Official codes for Mix-of-Show. This branch is for application, including simpli
 
 Difference from LoRA:
 
-1) In ED-LoRA, the embedding (LoRA weight=0) already encodes stable identity (use hermione as example):
+1) In ED-LoRA, the embedding (LoRA weight=0) already encodes stable identity (use harry potter as example):
 
-   ![lora_weight](./README.assets/lora_weight.png)
+   ![lora_weight](./README.assets/lora_weight.jpg)
 
 2) Based on the ED-LoRA, we can support multi-concept fusion without much idenity loss.
 
@@ -75,7 +75,7 @@ git-lfs clone https://huggingface.co/andite/anything-v4.0.git
 
 ### Data Preparation
 
-Note: Data selection and tagging are important in single-concept tuning. We strongly recommend checking the data processing in [sd-scripts](https://github.com/kohya-ss/sd-scripts). **In our ED-LoRA, we do not require any regularization dataset.** The detailed dataset preparation steps can refer to [Dataset.md](docs/Dataset.md).
+Note: Data selection and tagging are important in single-concept tuning. We strongly recommend checking the data processing in [sd-scripts](https://github.com/kohya-ss/sd-scripts). **In our ED-LoRA, we do not require any regularization dataset.** The detailed dataset preparation steps can refer to [Dataset.md](docs/Dataset.md). Our preprocessed data used in this repo is available at [Google Drive](https://drive.google.com/file/d/1O5oev8861N_KmKtqefb45l3SiSblbo5O/view?usp=sharing).
 
 ## :computer: Single-Client Concept Tuning
 
