@@ -23,7 +23,7 @@ Difference from LoRA:
 
    ![lora_weight](./README.assets/lora_weight.jpg)
 
-2) Based on the ED-LoRA, we can support multi-concept fusion without much idenity loss.
+2) Based on the ED-LoRA, we can support multi-concept fusion without much identity loss.
 
 ### Multi-Concept Results
 
