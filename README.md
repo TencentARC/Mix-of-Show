@@ -29,15 +29,15 @@ Difference from LoRA:
 
 **Concept List:**
 
-![concpet_list](./README.assets/concpet_list.png)
+![concept_list](./README.assets/concept_list.jpg)
 
 **Anime Character**:
 
-![two_girls_and_a_boy_are_standing_near_a_lake---baseline---9bc70560](./README.assets/two_girls_and_a_boy_are_standing_near_a_lake---baseline---9bc70560.png)
+![two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b](./README.assets/two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b.png)
 
 **Real Character**:
 
-![a_woman,_a_man_and_a_strong_monster,_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---8b04b23b](./README.assets/a_woman,_a_man_and_a_strong_monster,_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---8b04b23b.png)
+![three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4](./README.assets/three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4.png)
 
 ------
 
@@ -45,6 +45,7 @@ Difference from LoRA:
 
 - [ ] StableDiffusion XL support.
 - [ ] Colab Demo.
+- [x] Oct. 8, 2023. Add Attention Reg & Quality Improvement.
 - [x] Oct. 3, 2023. Release Main Branch for Community.
 - [x] Jun. 12, 2023. Research Code Released. Please switch to [research branch](https://github.com/TencentARC/Mix-of-Show/tree/research_branch).
 
