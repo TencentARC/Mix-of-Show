@@ -7,6 +7,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torchvision.transforms.functional as F
+from PIL import Image
 from torchvision.transforms import CenterCrop, Normalize, RandomCrop, RandomHorizontalFlip, Resize
 from torchvision.transforms.functional import InterpolationMode
 
@@ -122,65 +123,140 @@ class PairCompose(nn.Module):
 
 
 @TRANSFORM_REGISTRY.register()
-class ResizeCrop_InstanceMask(nn.Module):
-    def __init__(self, size, scale_ratio=[0.75, 1]):
+class HumanResizeCropFinalV3(nn.Module):
+    def __init__(self, size, crop_p=0.5):
         super().__init__()
         self.size = size
-        self.scale_ratio = scale_ratio
-
-    def make_divisible_to_64(self, image):
-        width, height = image.size
-
-        new_width = (width // 64) * 64
-        new_height = (height // 64) * 64
-
-        left = (width - new_width) // 2
-        top = (height - new_height) // 2
-        right = (width + new_width) // 2
-        bottom = (height + new_height) // 2
-
-        cropped_image = image.crop((left, top, right, bottom))
-        return cropped_image
+        self.crop_p = crop_p
+        self.random_crop = RandomCrop(size=size)
+        self.paired_random_crop = PairRandomCrop(size=size)
 
     def forward(self, img, **kwargs):
         # step 1: short edge resize to 512
         img = F.resize(img, size=self.size)
-
         if 'mask' in kwargs:
             kwargs['mask'] = F.resize(kwargs['mask'], size=self.size)
 
-        # max ratio set to 1:2
+        # step 2: random crop
         width, height = img.size
-        if height > width and height > 2 * self.size:
-            img = F.crop(img, 0, 0, 2 * self.size, width)
-            if 'mask' in kwargs:
-                kwargs['mask'] = F.crop(kwargs['mask'], 0, 0, 2 * self.size, width)
-        elif width > height and width > 2 * self.size:
-            img = F.center_crop(img=img, output_size=(height, 2 * self.size))
-            if 'mask' in kwargs:
-                kwargs['mask'] = F.center_crop(kwargs['mask'], output_size=(height, 2 * self.size))
+        if random.random() < self.crop_p:
+            if height > width:
+                crop_pos = random.randint(0, height - width)
+                img = F.crop(img, 0, 0, width + crop_pos, width)
+                if 'mask' in kwargs:
+                    kwargs['mask'] = F.crop(kwargs['mask'], 0, 0, width + crop_pos, width)
+            else:
+                if 'mask' in kwargs:
+                    img, kwargs = self.paired_random_crop(img, **kwargs)
+                else:
+                    img = self.random_crop(img)
+        else:
+            img = img
 
-        # random scale
-        ratio = random.uniform(*self.scale_ratio)
+        # step 3: long edge resize
+        img = F.resize(img, size=self.size - 1, max_size=self.size)
+        if 'mask' in kwargs:
+            kwargs['mask'] = F.resize(kwargs['mask'], size=self.size - 1, max_size=self.size)
+
+        new_width, new_height = img.size
+
+        img = np.array(img)
+        if 'mask' in kwargs:
+            kwargs['mask'] = np.array(kwargs['mask']) / 255
+
+        start_y = random.randint(0, 512 - new_height)
+        start_x = random.randint(0, 512 - new_width)
+
+        res_img = np.zeros((self.size, self.size, 3), dtype=np.uint8)
+        res_mask = np.zeros((self.size, self.size))
+        res_img_mask = np.zeros((self.size, self.size))
+
+        res_img[start_y:start_y + new_height, start_x:start_x + new_width, :] = img
+        if 'mask' in kwargs:
+            res_mask[start_y:start_y + new_height, start_x:start_x + new_width] = kwargs['mask']
+            kwargs['mask'] = res_mask
+
+        res_img_mask[start_y:start_y + new_height, start_x:start_x + new_width] = 1
+        kwargs['img_mask'] = res_img_mask
+
+        img = Image.fromarray(res_img)
+
+        if 'mask' in kwargs:
+            kwargs['mask'] = cv2.resize(kwargs['mask'], (self.size // 8, self.size // 8), cv2.INTER_NEAREST)
+            kwargs['mask'] = torch.from_numpy(kwargs['mask'])
+        kwargs['img_mask'] = cv2.resize(kwargs['img_mask'], (self.size // 8, self.size // 8), cv2.INTER_NEAREST)
+        kwargs['img_mask'] = torch.from_numpy(kwargs['img_mask'])
+        return img, kwargs
+
+
+@TRANSFORM_REGISTRY.register()
+class ResizeFillMaskNew(nn.Module):
+    def __init__(self, size, crop_p, scale_ratio):
+        super().__init__()
+        self.size = size
+        self.crop_p = crop_p
+        self.scale_ratio = scale_ratio
+        self.random_crop = RandomCrop(size=size)
+        self.paired_random_crop = PairRandomCrop(size=size)
+
+    def forward(self, img, **kwargs):
+        # width, height = img.size
+
+        # step 1: short edge resize to 512
+        img = F.resize(img, size=self.size)
+        if 'mask' in kwargs:
+            kwargs['mask'] = F.resize(kwargs['mask'], size=self.size)
+
+        # step 2: random crop
+        if random.random() < self.crop_p:
+            if 'mask' in kwargs:
+                img, kwargs = self.paired_random_crop(img, **kwargs)  # 51
+            else:
+                img = self.random_crop(img)  # 512
+        else:
+            # long edge resize
+            img = F.resize(img, size=self.size - 1, max_size=self.size)
+            if 'mask' in kwargs:
+                kwargs['mask'] = F.resize(kwargs['mask'], size=self.size - 1, max_size=self.size)
+
+        # step 3: random aspect ratio
         width, height = img.size
+        ratio = random.uniform(*self.scale_ratio)
+
         img = F.resize(img, size=(int(height * ratio), int(width * ratio)))
         if 'mask' in kwargs:
-            kwargs['mask'] = F.resize(kwargs['mask'], size=(int(height * ratio), int(width * ratio)))
+            kwargs['mask'] = F.resize(kwargs['mask'], size=(int(height * ratio), int(width * ratio)), interpolation=0)
 
-        # make divisible to 8
-        img = self.make_divisible_to_64(img)
+        # step 4: random place
+        new_width, new_height = img.size
+
+        img = np.array(img)
         if 'mask' in kwargs:
-            kwargs['mask'] = self.make_divisible_to_64(kwargs['mask'])
+            kwargs['mask'] = np.array(kwargs['mask']) / 255
 
-        width, height = img.size
+        start_y = random.randint(0, 512 - new_height)
+        start_x = random.randint(0, 512 - new_width)
+
+        res_img = np.zeros((self.size, self.size, 3), dtype=np.uint8)
+        res_mask = np.zeros((self.size, self.size))
+        res_img_mask = np.zeros((self.size, self.size))
+
+        res_img[start_y:start_y + new_height, start_x:start_x + new_width, :] = img
+        if 'mask' in kwargs:
+            res_mask[start_y:start_y + new_height, start_x:start_x + new_width] = kwargs['mask']
+            kwargs['mask'] = res_mask
+
+        res_img_mask[start_y:start_y + new_height, start_x:start_x + new_width] = 1
+        kwargs['img_mask'] = res_img_mask
+
+        img = Image.fromarray(res_img)
 
         if 'mask' in kwargs:
-            mask = np.array(kwargs['mask']) / 255
-        else:
-            mask = np.ones((height, width))
+            kwargs['mask'] = cv2.resize(kwargs['mask'], (self.size // 8, self.size // 8), cv2.INTER_NEAREST)
+            kwargs['mask'] = torch.from_numpy(kwargs['mask'])
+        kwargs['img_mask'] = cv2.resize(kwargs['img_mask'], (self.size // 8, self.size // 8), cv2.INTER_NEAREST)
+        kwargs['img_mask'] = torch.from_numpy(kwargs['img_mask'])
 
-        kwargs['mask'] = cv2.resize(mask, (width // 8, height // 8), cv2.INTER_NEAREST)
-        kwargs['mask'] = torch.from_numpy(kwargs['mask'])
         return img, kwargs
 
 

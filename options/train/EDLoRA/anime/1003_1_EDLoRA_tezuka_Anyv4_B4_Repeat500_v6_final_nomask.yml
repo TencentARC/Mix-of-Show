@@ -1,7 +1,7 @@
-name: 1003_EDLoRA_tezuka_Anyv4_B4_Repeat250
+name: 1003_1_EDLoRA_tezuka_Anyv4_B4_Repeat500_v6_final_nomask
 manual_seed: 0
 mixed_precision: fp16
-gradient_accumulation_steps: 2
+gradient_accumulation_steps: 1
 
 # dataset and data loader settings
 datasets:
@@ -9,17 +9,17 @@ datasets:
     name: LoraDataset
     concept_list: datasets/data_cfgs/MixofShow/single-concept/characters/anime/tezuka_kunimitsu.json
     use_caption: true
-    use_mask: false
+    use_mask: true
     instance_transform:
-      - { type: ResizeCrop_InstanceMask, size: 512 }
+      - { type: HumanResizeCropFinalV3, size: 512, crop_p: 0.5 }
       - { type: ToTensor }
       - { type: Normalize, mean: [ 0.5 ], std: [ 0.5 ] }
       - { type: ShuffleCaption, keep_token_num: 1 }
       - { type: EnhanceText, enhance_type: human }
     replace_mapping:
       <TOK>: <tezuka1> <tezuka2>
-    batch_size_per_gpu: 1
-    dataset_enlarge_ratio: 400
+    batch_size_per_gpu: 2
+    dataset_enlarge_ratio: 500
 
   val_vis:
     name: PromptDataset
@@ -54,7 +54,8 @@ models:
   new_concept_token: <tezuka1>+<tezuka2>
   initializer_token: <rand-0.013>+man
   noise_offset: 0.01
-  attn_reg_weight: ~
+  attn_reg_weight: 0.01
+  reg_full_identity: false
   use_mask_loss: false
   gradient_checkpoint: false
   enable_xformers: true
@@ -69,12 +70,11 @@ train:
     type: AdamW
     lr: !!float 0.0 # no use since we define different component lr in model
     weight_decay: 0.01
-    betas: [ 0.9, 0.999 ]
+    betas: [ 0.9, 0.999 ] # align with taming
 
   # dropkv
-  emb_norm_threshold: !!float 5.5e-1
   scheduler: linear
-
+  emb_norm_threshold: !!float 5.5e-1
 
 # validation settings
 val:

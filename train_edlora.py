@@ -111,7 +111,12 @@ def train(root_path, args):
 
             batch = next(train_data_yielder)
 
-            loss = EDLoRA_trainer(batch['images'], batch['prompts'], batch['masks'])
+            if 'masks' in batch:
+                masks = batch['masks']
+            else:
+                masks = batch['img_masks']
+
+            loss = EDLoRA_trainer(batch['images'], batch['prompts'], masks, batch['img_masks'])
             loss_dict['loss'] = loss
 
             # get fix embedding and learn embedding

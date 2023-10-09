@@ -27,7 +27,8 @@ class EDLoRATrainer(nn.Module):
         finetune_cfg=None,
         noise_offset=None,
         attn_reg_weight=None,
-        use_mask_loss=False,
+        reg_full_identity=True,  # True for thanos, False for real person (don't need to encode clothes)
+        use_mask_loss=True,
         enable_xformers=False,
         gradient_checkpoint=False
     ):
@@ -53,10 +54,12 @@ class EDLoRATrainer(nn.Module):
         self.new_concept_cfg = self.init_new_concept(new_concept_token, initializer_token, enable_edlora=enable_edlora)
 
         self.attn_reg_weight = attn_reg_weight
+        self.reg_full_identity = reg_full_identity
         if self.attn_reg_weight is not None:
-            raise NotImplementedError # still need investigate
+            self.controller = AttentionStore(training=True)
+            revise_edlora_unet_attention_controller_forward(self.unet, self.controller)  # support both lora and edlora forward
         else:
-            revise_edlora_unet_attention_forward(self.unet)
+            revise_edlora_unet_attention_forward(self.unet)  # support both lora and edlora forward
 
         if finetune_cfg:
             self.set_finetune_cfg(finetune_cfg)
@@ -196,8 +199,7 @@ class EDLoRATrainer(nn.Module):
             new_concept_token_ids.extend(new_token_cfg['concept_token_ids'])
         return new_concept_token_ids
 
-    def forward(self, images, prompts, masks):
-
+    def forward(self, images, prompts, masks, img_masks):
         latents = self.vae.encode(images).latent_dist.sample()
         latents = latents * 0.18215
 
@@ -243,12 +245,72 @@ class EDLoRATrainer(nn.Module):
             raise ValueError(f'Unknown prediction type {self.scheduler.config.prediction_type}')
 
         if self.use_mask_loss:
-            loss = F.mse_loss(model_pred.float(), target.float(), reduction='none')
-            loss = ((loss * masks).sum([1, 2, 3]) / masks.sum([1, 2, 3])).mean()
+            loss_mask = masks
         else:
-            loss = F.mse_loss(model_pred.float(), target.float())
+            loss_mask = img_masks
+        loss = F.mse_loss(model_pred.float(), target.float(), reduction='none')
+        loss = ((loss * loss_mask).sum([1, 2, 3]) / loss_mask.sum([1, 2, 3])).mean()
+
+        if self.attn_reg_weight is not None:
+            attention_maps = self.controller.get_average_attention()
+            attention_loss = self.cal_attn_reg(attention_maps, masks, text_input_ids)
+            if not torch.isnan(attention_loss):  # full mask
+                loss = loss + attention_loss
+            self.controller.reset()
 
         return loss
+
+    def cal_attn_reg(self, attention_maps, masks, text_input_ids):
+        '''
+        attention_maps: {down_cross:[], mid_cross:[], up_cross:[]}
+        masks: torch.Size([1, 1, 64, 64])
+        text_input_ids: torch.Size([16, 77])
+        '''
+        # step 1: find token position
+        batch_size = masks.shape[0]
+        text_input_ids = rearrange(text_input_ids, '(b l) n -> b l n', b=batch_size)
+        # print(masks.shape) # torch.Size([2, 1, 64, 64])
+        # print(text_input_ids.shape) # torch.Size([2, 16, 77])
+
+        new_token_pos = []
+        all_concept_token_ids = self.get_all_concept_token_ids()
+        for text in text_input_ids:
+            text = text[0]  # even multi-layer embedding, we extract the first one
+            new_token_pos.append([idx for idx in range(len(text)) if text[idx] in all_concept_token_ids])
+
+        # step2: aggregate attention maps with resolution and concat heads
+        attention_groups = {'64': [], '32': [], '16': [], '8': []}
+        for _, attention_list in attention_maps.items():
+            for attn in attention_list:
+                res = int(math.sqrt(attn.shape[1]))
+                cross_map = attn.reshape(batch_size, -1, res, res, attn.shape[-1])
+                attention_groups[str(res)].append(cross_map)
+
+        for k, cross_map in attention_groups.items():
+            cross_map = torch.cat(cross_map, dim=-4)  # concat heads
+            cross_map = cross_map.sum(-4) / cross_map.shape[-4]  # e.g., 64 torch.Size([2, 64, 64, 77])
+            cross_map = torch.stack([batch_map[..., batch_pos] for batch_pos, batch_map in zip(new_token_pos, cross_map)])  # torch.Size([2, 64, 64, 2])
+            attention_groups[k] = cross_map
+
+        attn_reg_total = 0
+        # step3: calculate loss for each resolution: <new1> <new2> -> <new1> is to penalize outside mask, <new2> to align with mask
+        for k, cross_map in attention_groups.items():
+            map_adjective, map_subject = cross_map[..., 0], cross_map[..., 1]
+
+            map_subject = map_subject / map_subject.max()
+            map_adjective = map_adjective / map_adjective.max()
+
+            gt_mask = F.interpolate(masks, size=map_subject.shape[1:], mode='nearest').squeeze(1)
+
+            if self.reg_full_identity:
+                loss_subject = F.mse_loss(map_subject.float(), gt_mask.float(), reduction='mean')
+            else:
+                loss_subject = map_subject[gt_mask == 0].mean()
+
+            loss_adjective = map_adjective[gt_mask == 0].mean()
+
+            attn_reg_total += self.attn_reg_weight * (loss_subject + loss_adjective)
+        return attn_reg_total
 
     def load_delta_state_dict(self, delta_state_dict):
         # load embedding

@@ -1,8 +1,8 @@
 #---------------------------------------------anime-------------------------------------------
 
-anime_character1=1
+anime_character=0
 
-if [ ${anime_character1} -eq 1 ]
+if [ ${anime_character} -eq 1 ]
 then
   fused_model="experiments/composed_edlora/anythingv4/hina+kario+tezuka_anythingv4/combined_model_base"
   expdir="hina+kario+tezuka_anythingv4"
@@ -12,18 +12,18 @@ then
   sketch_condition=''
   sketch_adaptor_weight=1.0
 
-  context_prompt='two girls and a boy are standing near a lake'
+  context_prompt='two girls and a boy are standing near a forest'
   context_neg_prompt='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality'
 
-  region1_prompt='[a <hina1> <hina2>, standing near a lake]'
+  region1_prompt='[a <hina1> <hina2>, standing near a forest]'
   region1_neg_prompt="[${context_neg_prompt}]"
   region1='[12, 36, 1024, 600]'
 
-  region2_prompt='[a <tezuka1> <tezuka2>, standing near a lake]'
+  region2_prompt='[a <tezuka1> <tezuka2>, standing near a forest]'
   region2_neg_prompt="[${context_neg_prompt}]"
   region2='[18, 696, 1024, 1180]'
 
-  region5_prompt='[a <kaori1> <kaori2>, standing near a lake]'
+  region5_prompt='[a <kaori1> <kaori2>, standing near a forest]'
   region5_neg_prompt="[${context_neg_prompt}]"
   region5='[142, 1259, 1024, 1956]'
 
@@ -40,12 +40,12 @@ then
     --negative_prompt="${context_neg_prompt}" \
     --prompt_rewrite="${prompt_rewrite}" \
     --suffix="baseline" \
-    --seed=15
+    --seed=19
 fi
 
 #---------------------------------------------real-------------------------------------------
 
-real_character=0
+real_character=1
 
 if [ ${real_character} -eq 1 ]
 then
@@ -58,19 +58,19 @@ then
   sketch_condition=''
   sketch_adaptor_weight=1.0
 
-  context_prompt='a woman, a man and a strong monster, near the castle, 4K, high quality, high resolution, best quality'
+  context_prompt='three people near the castle, 4K, high quality, high resolution, best quality'
   context_neg_prompt='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality'
 
   region1_prompt='[a <potter1> <potter2>, in Hogwarts uniform, holding hands, near the castle, 4K, high quality, high resolution, best quality]'
   region1_neg_prompt="[${context_neg_prompt}]"
   region1='[4, 6, 1024, 490]'
 
-  region2_prompt='[a <hermione1> <hermione2>, near the castle, 4K, high quality, high resolution, best quality]'
+  region2_prompt='[a <hermione1> <hermione2>, girl, in Hogwarts uniform, near the castle, 4K, high quality, high resolution, best quality]'
   region2_neg_prompt="[${context_neg_prompt}]"
   region2='[14, 490, 1024, 920]'
 
-  region3_prompt='[a <thanos1> <thanos2>, near the castel, 4K, high quality, high resolution, best quality]'
-  region3_neg_prompt="[white arm, multiple legs, ${context_neg_prompt}]"
+  region3_prompt='[a <thanos1> <thanos2>, purple armor, near the castle, 4K, high quality, high resolution, best quality]'
+  region3_neg_prompt="[${context_neg_prompt}]"
   region3='[2, 1302, 1024, 1992]'
 
   prompt_rewrite="${region1_prompt}-*-${region1_neg_prompt}-*-${region1}|${region2_prompt}-*-${region2_neg_prompt}-*-${region2}|${region3_prompt}-*-${region3_neg_prompt}-*-${region3}"

@@ -90,6 +90,12 @@ class LoraDataset(Dataset):
             example['masks'] = extra_args['mask']
             example['masks'] = example['masks'].unsqueeze(0)
         else:
+            pass
+
+        if 'img_mask' in extra_args:
+            example['img_masks'] = extra_args['img_mask']
+            example['img_masks'] = example['img_masks'].unsqueeze(0)
+        else:
             raise NotImplementedError
 
         example['prompts'] = extra_args['prompts']
