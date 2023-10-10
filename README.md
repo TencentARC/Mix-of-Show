@@ -1,6 +1,6 @@
 # Mix-of-Show
 
-🚩🚩🚩: Main branch for community usage has been released (keep updating the main branch).
+🚩🚩🚩: Main branch for community has been released (keep updating the main branch).
 
 ------
 
@@ -23,7 +23,7 @@ Difference from LoRA:
 
    ![lora_weight](./README.assets/lora_weight.jpg)
 
-2) Based on the ED-LoRA, we can support multi-concept fusion without much idenity loss.
+2) Based on the ED-LoRA, we can support multi-concept fusion without much identity loss.
 
 ### Multi-Concept Results
 
@@ -114,7 +114,7 @@ val:
 We tune each concept with 2 A100 GPU. Similar to LoRA, community user can enable gradient accumulation, xformer, gradient checkpoint for tuning on one GPU.
 
 ```bash
-accelerate launch train_edlora.py -opt options/train/EDLoRA/real/2101_EDLoRA_potter_Cmix_B4_Repeat250.yml
+accelerate launch train_edlora.py -opt options/train/EDLoRA/real/8101_EDLoRA_potter_Cmix_B4_Repeat500.yml
 ```
 
 ### Step 3: Sample
@@ -148,7 +148,7 @@ image.save('res.jpg')
 Or sampling image grids for comprehensive visualization: specify the model path in test config, and run following command. 
 
 ```bash
-python test_edlora.py -opt options/test/EDLoRA/2002_EDLoRA_hermione_Cmix_B4_Iter1K.yml
+python test_edlora.py -opt options/test/EDLoRA/human/8101_EDLoRA_potter_Cmix_B4_Repeat500.yml
 ```
 
 ## :computer: Center-Node Concept Fusion
