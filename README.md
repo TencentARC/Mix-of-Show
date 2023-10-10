@@ -39,7 +39,7 @@ Difference from LoRA:
 
 **Real Character**:
 
-![three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4](./README.assets/three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4.png)
+![a_<potter1>_<potter2>,_a_<hermione1>_<hermione2>_and_a_<thanos1>_<thanos2>_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---e27b4344](./README.assets/a_<potter1>_<potter2>,_a_<hermione1>_<hermione2>_and_a_<thanos1>_<thanos2>_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---e27b4344.png)
 
 ------
 
