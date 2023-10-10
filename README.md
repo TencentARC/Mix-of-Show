@@ -33,7 +33,9 @@ Difference from LoRA:
 
 **Anime Character**:
 
-![two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b](./README.assets/two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b.png)
+![a_<hina1>_<hina2>,_a_<kaori1>_<kaori2>_and_a_<tezuka1>_<tezuka2>_are_standing_near_a_forest---baseline---2f4a0e7e](./README.assets/a_<hina1>_<hina2>,_a_<kaori1>_<kaori2>_and_a_<tezuka1>_<tezuka2>_are_standing_near_a_forest---baseline---2f4a0e7e.png)
+
+![a_<hina1>_<hina2>,_a_<mitsuha1>_<mitsuha2>,_a_<kaori1>_<kaori2>,_a_<tezuka1>_<tezuka2>_and_a_<son1>_<son2>_are_standing_near_a_forest---baseline---8cf2ff24](./README.assets/a_<hina1>_<hina2>,_a_<mitsuha1>_<mitsuha2>,_a_<kaori1>_<kaori2>,_a_<tezuka1>_<tezuka2>_and_a_<son1>_<son2>_are_standing_near_a_forest---baseline---8cf2ff24.png)
 
 **Real Character**:
 
