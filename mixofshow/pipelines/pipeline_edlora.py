@@ -209,6 +209,7 @@ class EDLoRAPipeline(StableDiffusionPipeline):
         callback: Optional[Callable[[int, int, torch.FloatTensor], None]] = None,
         callback_steps: int = 1,
         cross_attention_kwargs: Optional[Dict[str, Any]] = None,
+        new_concept_cfg: Optional[Dict[str, Any]] = None,
     ):
 
         # 0. Default height and width to unet
@@ -233,10 +234,10 @@ class EDLoRAPipeline(StableDiffusionPipeline):
         do_classifier_free_guidance = guidance_scale > 1.0
 
         # 3. Encode input prompt, this support pplus and edlora (layer-wise embedding)
-        assert self.new_concept_cfg is not None
+        assert new_concept_cfg is not None
         prompt_embeds = self._encode_prompt(
             prompt,
-            self.new_concept_cfg,
+            new_concept_cfg,
             device,
             num_images_per_prompt,
             do_classifier_free_guidance,
