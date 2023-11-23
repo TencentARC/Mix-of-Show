@@ -134,12 +134,12 @@ enable_edlora = True  # True for edlora, False for lora
 pipeclass = EDLoRAPipeline if enable_edlora else StableDiffusionPipeline
 pipe = pipeclass.from_pretrained(pretrained_model_path, scheduler=DPMSolverMultistepScheduler.from_pretrained(pretrained_model_path, subfolder='scheduler'), torch_dtype=torch.float16).to('cuda')
 pipe, new_concept_cfg = convert_edlora(pipe, torch.load(lora_model_path), enable_edlora=enable_edlora, alpha=0.7)
-extra_args = {'new_concept_cfg': new_concept_cfg} if enable_edlora else {}
+pipe.set_new_concept_cfg(new_concept_cfg)
 
 TOK = '<hermione1> <hermione2>'  # the TOK is the concept name when training lora/edlora
 prompt = f'a {TOK} in front of eiffel tower, 4K, high quality, high resolution'
 negative_prompt = 'longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality'
-image = pipe(prompt, negative_prompt=negative_prompt, height=768, width=512, num_inference_steps=50, guidance_scale=7.5, **extra_args).images[0]
+image = pipe(prompt, negative_prompt=negative_prompt, height=768, width=512, num_inference_steps=50, guidance_scale=7.5).images[0]
 image.save('res.jpg')
 ```
 
@@ -209,9 +209,7 @@ negative_prompt = 'longbody, lowres, bad anatomy, bad hands, missing fingers, ex
 
 image = pipe(prompt, negative_prompt=negative_prompt, height=1024, width=512, num_inference_steps=50, generator=torch.Generator('cuda').manual_seed(1), guidance_scale=7.5).images[0]
 
-save_dir = 'debug_combined/combine_thanos/'
-os.makedirs(save_dir, exist_ok=True)
-image.save(f'{save_dir}/res.jpg')
+image.save(f'res.jpg')
 ```
 
 **Regionally controllable multi-concept sampling:**
