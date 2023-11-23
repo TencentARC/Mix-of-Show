@@ -1,6 +1,6 @@
 # Mix-of-Show
 
-🚩🚩🚩: Main branch for community usage has been released (keep updating the main branch).
+🚩🚩🚩: Main branch for community has been released (keep updating the main branch).
 
 ------
 
@@ -23,7 +23,7 @@ Difference from LoRA:
 
    ![lora_weight](./README.assets/lora_weight.jpg)
 
-2) Based on the ED-LoRA, we can support multi-concept fusion without much idenity loss.
+2) Based on the ED-LoRA, we can support multi-concept fusion without much identity loss.
 
 ### Multi-Concept Results
 
@@ -33,11 +33,11 @@ Difference from LoRA:
 
 **Anime Character**:
 
-![two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b](./README.assets/two_girls_and_a_boy_are_standing_near_a_forest---baseline---9944f66b.png)
+![a_<hina1>_<hina2>,_a_<kaori1>_<kaori2>_and_a_<tezuka1>_<tezuka2>_are_standing_near_a_forest---baseline---e156a9f7](./README.assets/a_<hina1>_<hina2>,_a_<kaori1>_<kaori2>_and_a_<tezuka1>_<tezuka2>_are_standing_near_a_forest---baseline---e156a9f7.png)
 
 **Real Character**:
 
-![three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4](./README.assets/three_people_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---9ef4e3f4.png)
+![a_<potter1>_<potter2>,_a_<hermione1>_<hermione2>_and_a_<thanos1>_<thanos2>_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---e27b4344](./README.assets/a_<potter1>_<potter2>,_a_<hermione1>_<hermione2>_and_a_<thanos1>_<thanos2>_near_the_castle,_4K,_high_quality,_high_resolution,_best_quality---baseline---e27b4344.png)
 
 ------
 
