@@ -38,9 +38,6 @@ class EDLoRAPipeline(StableDiffusionPipeline):
         tokenizer: CLIPTokenizer,
         unet: UNet2DConditionModel,
         scheduler: KarrasDiffusionSchedulers,
-        safety_checker=None,
-        feature_extractor=None,
-        requires_safety_checker: bool = False,
     ):
         if hasattr(scheduler.config, 'steps_offset') and scheduler.config.steps_offset != 1:
             deprecation_message = (
